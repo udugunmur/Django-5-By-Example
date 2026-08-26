@@ -1917,3 +1917,4 @@ Los siguientes recursos proporcionan información adicional relacionada con los 
 - **Etiquetas y filtros de plantilla integrados:** [https://docs.djangoproject.com/en/5.2/ref/templates/builtins/](https://subscription.packtpub.com/book/web-development/9781805125457/1)
 - **Comandos de gestión de Django:** [https://docs.djangoproject.com/en/5.2/ref/django-admin/](https://subscription.packtpub.com/book/web-development/9781805125457/1)
 - **Archivos estáticos para el código de este capítulo:** [https://github.com/PacktPublishing/Django-5-by-example/tree/master/Chapter01/mysite/blog/static](https://subscription.packtpub.com/book/web-development/9781805125457/1)
+

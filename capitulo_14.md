@@ -1051,3 +1051,4 @@ Los siguientes recursos proporcionan información adicional relacionada con los 
 - **Imagen Docker oficial de Redis:** [https://hub.docker.com/_/redis](https://hub.docker.com/_/redis)
 - **Opciones de descarga de Redis:** [https://redis.io/download/](https://redis.io/download/)
 - **Código fuente de Django Redisboard:** [https://github.com/ionelmc/django-redisboard](https://github.com/ionelmc/django-redisboard)
+

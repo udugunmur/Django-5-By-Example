@@ -1531,3 +1531,4 @@ Los siguientes recursos proporcionan información adicional relacionada con los 
 - **Creación de comandos de administración personalizados:** [https://docs.djangoproject.com/en/5.2/howto/custom-management-commands/](https://docs.djangoproject.com/en/5.2/howto/custom-management-commands/)
 - **cron:** [https://en.wikipedia.org/wiki/Cron](https://en.wikipedia.org/wiki/Cron)
 - **Celery Beat:** [https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html](https://docs.celeryq.dev/en/stable/userguide/periodic-tasks.html)
+

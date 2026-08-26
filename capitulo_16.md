@@ -1314,3 +1314,4 @@ Los siguientes recursos proporcionan información adicional relacionada con los 
 - **Consultas asíncronas en el ORM de Django:** [https://docs.djangoproject.com/en/5.2/topics/db/queries/#asynchronous-queries](https://docs.djangoproject.com/en/5.2/topics/db/queries/#asynchronous-queries)
 - **Documentación de nh3:** [https://nh3.readthedocs.io/en/latest/](https://nh3.readthedocs.io/en/latest/)
 - **Proyecto django-nh3:** [https://github.com/marksweb/django-nh3](https://github.com/marksweb/django-nh3)
+

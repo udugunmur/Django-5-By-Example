@@ -1220,3 +1220,4 @@ Los siguientes recursos proporcionan información adicional relacionada con los 
 - **Routers en REST framework:** [https://www.django-rest-framework.org/api-guide/routers/](https://www.django-rest-framework.org/api-guide/routers/)
 - **Documentación de la biblioteca Python Requests:** [https://requests.readthedocs.io/en/master/](https://requests.readthedocs.io/en/master/)
 - **Autenticación con la biblioteca Requests:** [https://requests.readthedocs.io/en/master/user/authentication/](https://requests.readthedocs.io/en/master/user/authentication/)
+

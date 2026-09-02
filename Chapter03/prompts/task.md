@@ -1,15 +1,15 @@
-**Background:** I'm creating a blog using Django along with the library `django-taggit` for tagging my blog posts.
+**Contexto:** Estoy creando un blog con Django junto con la librería `django-taggit` para etiquetar las entradas de mi blog.
 
-**Goal:**  I want to extend the sitemap functionality to include URLs for each tag used in the blog, effectively listing posts filtered by those tags in the `sitemap.xml`.
+**Objetivo:** Quiero extender la funcionalidad del sitemap para incluir URLs para cada etiqueta utilizada en el blog, listando de forma efectiva las publicaciones filtradas por dichas etiquetas en el `sitemap.xml`.
 
-**Here's what I've done so far:**
-- I've got a sitemap set up for the posts using Django's sitemap framework.
-- I've made URL patterns that allow viewing posts filtered by tags.
-- I want to add these tag-filtered views to my sitemap but I'm not sure how.
+**Esto es lo que he realizado hasta ahora:**
+- Tengo configurado un sitemap para las publicaciones utilizando el framework de sitemaps de Django.
+- He creado patrones de URL que permiten visualizar las publicaciones filtradas por etiquetas.
+- Quiero añadir estas vistas filtradas por etiquetas a mi sitemap pero no estoy seguro de cómo hacerlo.
 
-**Here’s some of my existing setup:**
+**Aquí está parte de mi configuración actual:**
 
-For the posts' sitemap: `blog/sitemaps.py`
+Para el sitemap de publicaciones: `blog/sitemaps.py`
 ```
 from django.contrib.sitemaps import Sitemap
 from .models import Post
@@ -26,7 +26,7 @@ class PostSitemap(Sitemap):
         return obj.updated
 ```
 
-The URL pattern for listing posts by a tag: `blog/urls.py`
+El patrón de URL para listar publicaciones por etiqueta: `blog/urls.py`
 ```
 urlpatterns = [
     # ...
@@ -34,7 +34,7 @@ urlpatterns = [
 ]
 ```
 
-And the main site's URL configuration: `mysite/urls.py`
+Y la configuración de URLs del sitio principal: `mysite/urls.py`
 ```
 from django.contrib import admin
 from django.contrib.sitemaps.views import sitemap
@@ -57,4 +57,4 @@ urlpatterns = [
 ]
 ```
 
-Please, explain the necessary changes to the code, to add tag pages to the sitemap.
+Por favor, explica las modificaciones necesarias en el código para añadir las páginas de etiquetas al sitemap.

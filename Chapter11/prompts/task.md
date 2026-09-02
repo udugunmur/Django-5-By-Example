@@ -1,11 +1,11 @@
-**Background:** I've developed an online shop using Django and manage orders through the `Order` model. Payment processing is handled via the Stripe API with the Python `stripe` module.
+**Contexto:** He desarrollado una tienda en línea con Django y gestiono los pedidos a través del modelo `Order`. El procesamiento de pagos se realiza mediante la API de Stripe con el módulo de Python `stripe`.
 
-**Goal:** I'm planning to add a weight attribute to products (measured in grams) and calculate shipping costs based on the total weight of the items in an order.
-I need guidance on the modifications required in my models and views to calculate shipping costs for orders. Additionally, I need to ensure that the correct amount, including the calculated shipping cost, is charged through Stripe.
+**Objetivo:** Tengo previsto añadir un atributo de peso a los productos (medido en gramos) y calcular los gastos de envío en función del peso total de los artículos de un pedido.
+Necesito orientación sobre las modificaciones necesarias en mis modelos y vistas para calcular los gastos de envío de los pedidos. Además, debo garantizar que se cobre el importe correcto a través de Stripe, incluyendo el coste de envío calculado.
 
-**Here’s some of my existing setup:**
+**Aquí está parte de mi configuración actual:**
 
-Definition of the `Product` model in `shop/models.py`:
+Definición del modelo `Product` en `shop/models.py`:
 ```
 class Product(TranslatableModel):
     translations = TranslatedFields(
@@ -39,7 +39,7 @@ class Product(TranslatableModel):
         return reverse('shop:product_detail', args=[self.id, self.slug])
 ```
 
-Definition of the `Order` and `OrderItem` models in `orders/models.py`:
+Definición de los modelos `Order` y `OrderItem` en `orders/models.py`:
 ```
 class Order(models.Model):
     first_name = models.CharField(_('first name'), max_length=50)
@@ -88,13 +88,10 @@ class Order(models.Model):
 
     def get_stripe_url(self):
         if not self.stripe_id:
-            # no payment associated
             return ''
         if '_test_' in settings.STRIPE_SECRET_KEY:
-            # Stripe path for test payments
             path = '/test/'
         else:
-            # Stripe path for real payments
             path = '/'
         return f'https://dashboard.stripe.com{path}payments/{self.stripe_id}'
 
@@ -120,7 +117,7 @@ class OrderItem(models.Model):
         return self.price * self.quantity
 ```
 
-View in `orders/views.py` to create an order when submitted via POST:
+Vista en `orders/views.py` para crear un pedido cuando se envía por POST:
 ```
 def order_create(request):
     cart = Cart(request)
@@ -139,13 +136,9 @@ def order_create(request):
                     price=item['price'],
                     quantity=item['quantity'],
                 )
-            # clear the cart
             cart.clear()
-            # launch asynchronous task
             order_created.delay(order.id)
-            # set the order in the session
             request.session['order_id'] = order.id
-            # redirect for payment
             return redirect('payment:process')
     else:
         form = OrderCreateForm()
@@ -156,7 +149,7 @@ def order_create(request):
     )
 ```
 
-View to initiate the Stripe payment process for an order (in `payment/views.py`):
+Vista para iniciar el proceso de pago con Stripe de un pedido (en `payment/views.py`):
 ```
 def payment_process(request):
     order_id = request.session.get('order_id')
@@ -170,7 +163,6 @@ def payment_process(request):
             reverse('payment:canceled')
         )
 
-        # Stripe checkout session data
         session_data = {
             'mode': 'payment',
             'client_reference_id': order.id,
@@ -178,7 +170,6 @@ def payment_process(request):
             'cancel_url': cancel_url,
             'line_items': [],
         }
-        # add order items to the Stripe checkout session
         for item in order.items.all():
             session_data['line_items'].append(
                 {
@@ -193,7 +184,6 @@ def payment_process(request):
                 }
             )
 
-        # Stripe coupon
         if order.coupon:
             stripe_coupon = stripe.Coupon.create(
                 name=order.coupon.code,
@@ -202,10 +192,7 @@ def payment_process(request):
             )
             session_data['discounts'] = [{'coupon': stripe_coupon.id}]
 
-        # create Stripe checkout session
         session = stripe.checkout.Session.create(**session_data)
-
-        # redirect to Stripe payment form
         return redirect(session.url, code=303)
 
     else:

@@ -1,14 +1,14 @@
-**Background:** I've developed an e-learning platform using Django that organizes course content into different modules.
+**Contexto:** He desarrollado una plataforma de aprendizaje electrónico con Django que organiza el contenido del curso en diferentes módulos.
 
-**Goal:** I want to enable students to resume a course at the exact module where they last left off. To achieve this, I plan to utilize Redis to store the last module students accessed in a course.
+**Objetivo:** Deseo permitir que los alumnos reanuden un curso exactamente en el módulo donde lo dejaron la última vez. Para lograrlo, planeo utilizar Redis para almacenar el último módulo al que accedió un estudiante en un curso.
 
-**Implementation Details:**
-I want to use the following code to establish a connection to Redis using the `redis` Python library, and I want to follow Redis's naming conventions for the keys.
+**Detalles de implementación:**
+Deseo utilizar el siguiente código para establecer una conexión con Redis utilizando la librería de Python `redis`, y quiero seguir las convenciones de nombres de Redis para las claves.
 ```
 import redis
 from django.conf import settings
 
-# Setting up the Redis connection
+# Configuración de la conexión a Redis
 r = redis.Redis(
     host=settings.REDIS_HOST,
     port=settings.REDIS_PORT,
@@ -16,9 +16,9 @@ r = redis.Redis(
 )
 ```
 
-**Here’s some of my existing setup:**
+**Aquí está parte de mi configuración actual:**
 
-Definition of the `Course` and `Module` models in `courses/models.py`:
+Definición de los modelos `Course` y `Module` en `courses/models.py`:
 ```
 class Course(models.Model):
     # ...
@@ -45,7 +45,7 @@ class Module(models.Model):
         return f'{self.order}. {self.title}'
 ```
 
-View for students to access course module contents in `students/views.py`:
+Vista para que los estudiantes accedan a los contenidos del módulo del curso en `students/views.py`:
 ```
 class StudentCourseDetailView(LoginRequiredMixin, DetailView):
     model = Course
@@ -57,15 +57,12 @@ class StudentCourseDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        # get course object
         course = self.get_object()
         if 'module_id' in self.kwargs:
-            # get current module
             context['module'] = course.modules.get(
                 id=self.kwargs['module_id']
             )
         else:
-            # get first module
             context['module'] = course.modules.all()[0]
         return context
 ```

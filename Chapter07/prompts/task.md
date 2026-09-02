@@ -1,10 +1,10 @@
-**Background:** I've developed a Django application called account, which includes a Profile model. This model extends Django's default authentication User model.
+**Contexto:** He desarrollado una aplicación de Django llamada account, que incluye un modelo Profile. Este modelo extiende el modelo User de autenticación predeterminado de Django.
 
-**Goal:** I aim to use Django signals to automatically create an associated `Profile` object each time a `User` object is created.
+**Objetivo:** Mi meta es utilizar signals de Django para crear automáticamente un objeto `Profile` asociado cada vez que se crea un objeto `User`.
 
-**Here’s some of my existing setup:**
+**Aquí está parte de mi configuración actual:**
 
-Definition of the `Profile` model in `account/models.py`:
+Definición del modelo `Profile` en `account/models.py`:
 ```
 class Profile(models.Model):
     user = models.OneToOneField(
